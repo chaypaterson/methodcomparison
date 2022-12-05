@@ -13,6 +13,10 @@ int main(void) {
     gsl_rng *rng = gsl_rng_alloc(gsl_rng_default);
 
     while ((popn > 0) && (popn < 1024 * 1024)) {
+        // using the Gillespie algorithm we only have two calls to the RNG, and
+        // always sample from the same distributions: uniform for X, and
+        // exponential for tau. We don't need to do any mathematics beforehand
+        // to know which distributions to use.
         double x = gsl_ran_flat(rng, 0, Gamma);
         if (x <= beta * popn) {
             // birth

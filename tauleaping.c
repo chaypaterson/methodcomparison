@@ -16,7 +16,11 @@ int main(void) {
         // generate events and update populations:
         int born = gsl_ran_poisson(rng, popn * beta * tau);
         int died = gsl_ran_poisson(rng, popn * delta * tau);
+        // NB: we need to know/choose which distribution to sample from in
+        // advance!
         popn += born - died;
+        // NB: there is a risk the population can go negative -- this is not an
+        // issue in the Gillespie sim
 
         time += tau;
         // print out progress:
